@@ -25,21 +25,21 @@ function buildOverlaySvg(width: number, height: number): string {
   const bracket = Math.round(width * 0.05);
   const bracketW = Math.round(width * 0.004);
 
-  const recDotR = Math.round(width * 0.01);
-  const recDotCY = Math.round(height * 0.14);
-
-  const recordRingR = Math.round(width * 0.032);
-  const recordInnerR = Math.round(width * 0.016);
-  const recordCY = Math.round(height * 0.82);
+  const playRingR = Math.round(width * 0.032);
+  const playHalf = Math.round(width * 0.017);
+  const playCY = Math.round(height * 0.5);
+  const playX = centerX - Math.round(playHalf * 0.5);
+  const playTopY = playCY - playHalf;
+  const playBotY = playCY + playHalf;
+  const playTipX = centerX + Math.round(playHalf * 0.5);
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
   <path d="M${frameX1},${frameY1 + bracket} V${frameY1} H${frameX1 + bracket}" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="${bracketW}" stroke-linecap="round"/>
   <path d="M${frameX2},${frameY1 + bracket} V${frameY1} H${frameX2 - bracket}" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="${bracketW}" stroke-linecap="round"/>
   <path d="M${frameX1},${frameY2 - bracket} V${frameY2} H${frameX1 + bracket}" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="${bracketW}" stroke-linecap="round"/>
   <path d="M${frameX2},${frameY2 - bracket} V${frameY2} H${frameX2 - bracket}" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="${bracketW}" stroke-linecap="round"/>
-  <circle cx="${centerX}" cy="${recDotCY}" r="${recDotR}" fill="#ff3b30"/>
-  <circle cx="${centerX}" cy="${recordCY}" r="${recordRingR}" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="${bracketW}"/>
-  <circle cx="${centerX}" cy="${recordCY}" r="${recordInnerR}" fill="#ff3b30"/>
+  <circle cx="${centerX}" cy="${playCY}" r="${playRingR}" fill="rgba(0,0,0,0.55)" stroke="rgba(255,255,255,0.9)" stroke-width="${bracketW}"/>
+  <polygon points="${playX},${playTopY} ${playX},${playBotY} ${playTipX},${playCY}" fill="#ffffff"/>
 </svg>`;
 }
 
