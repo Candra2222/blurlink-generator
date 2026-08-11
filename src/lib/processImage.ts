@@ -25,43 +25,21 @@ function buildOverlaySvg(width: number, height: number): string {
   const bracket = Math.round(width * 0.05);
   const bracketW = Math.round(width * 0.004);
 
-  const recFont = Math.round(height * 0.07);
-  const recY = Math.round(height * 0.2);
-  const recDotR = Math.round(recFont * 0.2);
-  const recDotCX = centerX - Math.round(recFont * 1.7);
-  const recDotCY = recY - Math.round(recFont * 0.38);
-  const recTextX = centerX + Math.round(recFont * 0.5);
+  const recDotR = Math.round(width * 0.01);
+  const recDotCY = Math.round(height * 0.14);
 
-  const capW = Math.round(width * 0.46);
-  const capH = Math.round(height * 0.06);
-  const capX = Math.round((width - capW) / 2);
-  const textSize = Math.round(height * 0.035);
-  const textY = Math.round(height * 0.5);
-  const capY = textY - Math.round(capH * 0.55);
-
-  const btnW = Math.round(width * 0.16);
-  const btnH = Math.round(height * 0.08);
-  const btnX = Math.round((width - btnW) / 2);
-  const btnY = Math.round(height * 0.59);
-  const btnFont = Math.round(height * 0.045);
-  const btnTextY = btnY + Math.round(btnH * 0.68);
-
-  const blinkR = Math.round(width * 0.008);
-  const blinkCX = centerX;
-  const blinkCY = Math.round(height * 0.78);
+  const recordRingR = Math.round(width * 0.032);
+  const recordInnerR = Math.round(width * 0.016);
+  const recordCY = Math.round(height * 0.82);
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
   <path d="M${frameX1},${frameY1 + bracket} V${frameY1} H${frameX1 + bracket}" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="${bracketW}" stroke-linecap="round"/>
   <path d="M${frameX2},${frameY1 + bracket} V${frameY1} H${frameX2 - bracket}" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="${bracketW}" stroke-linecap="round"/>
   <path d="M${frameX1},${frameY2 - bracket} V${frameY2} H${frameX1 + bracket}" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="${bracketW}" stroke-linecap="round"/>
   <path d="M${frameX2},${frameY2 - bracket} V${frameY2} H${frameX2 - bracket}" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="${bracketW}" stroke-linecap="round"/>
-  <circle cx="${recDotCX}" cy="${recDotCY}" r="${recDotR}" fill="#ff3b30"/>
-  <text x="${recTextX}" y="${recY}" text-anchor="middle" font-size="${recFont}" font-family="Arial, Helvetica, sans-serif" font-weight="800" fill="#ff3b30" letter-spacing="2">REC</text>
-  <rect x="${capX}" y="${capY}" width="${capW}" height="${capH}" rx="${Math.round(capH / 2)}" fill="rgba(0,0,0,0.55)"/>
-  <text x="${centerX}" y="${textY}" text-anchor="middle" font-size="${textSize}" font-family="Arial, Helvetica, sans-serif" font-weight="600" fill="#ffffff" letter-spacing="1">click the show button</text>
-  <rect x="${btnX}" y="${btnY}" width="${btnW}" height="${btnH}" rx="${Math.round(btnH / 2)}" fill="rgba(0,0,0,0.55)" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
-  <text x="${centerX}" y="${btnTextY}" text-anchor="middle" font-size="${btnFont}" font-family="Arial, Helvetica, sans-serif" font-weight="700" fill="#ffffff" letter-spacing="2">show</text>
-  <circle cx="${blinkCX}" cy="${blinkCY}" r="${blinkR}" fill="#ff3b30"/>
+  <circle cx="${centerX}" cy="${recDotCY}" r="${recDotR}" fill="#ff3b30"/>
+  <circle cx="${centerX}" cy="${recordCY}" r="${recordRingR}" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="${bracketW}"/>
+  <circle cx="${centerX}" cy="${recordCY}" r="${recordInnerR}" fill="#ff3b30"/>
 </svg>`;
 }
 
