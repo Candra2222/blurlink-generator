@@ -15,20 +15,34 @@ export function extForMimetype(type: string): string {
 }
 
 function buildOverlaySvg(width: number, height: number): string {
-  const emojiSize = Math.round(height * 0.1);
-  const textSize = Math.round(height * 0.05);
-  const pillW = Math.round(width * 0.5);
-  const pillH = Math.round(height * 0.26);
-  const pillX = Math.round((width - pillW) / 2);
-  const pillY = Math.round(height * 0.37);
   const centerX = Math.round(width / 2);
-  const emojiY = Math.round(height * 0.46);
-  const textY = Math.round(height * 0.58);
+
+  const badgeH = Math.round(height * 0.06);
+  const badgeW = Math.round(badgeH * 2.7);
+  const badgeX = Math.round(width * 0.02);
+  const badgeY = Math.round(height * 0.04);
+  const badgeFont = Math.round(badgeH * 0.55);
+
+  const emojiSize = Math.round(height * 0.14);
+  const emojiY = Math.round(height * 0.43);
+
+  const textSize = Math.round(height * 0.042);
+  const textY = Math.round(height * 0.52);
+
+  const pillW = Math.round(width * 0.18);
+  const pillH = Math.round(height * 0.09);
+  const pillX = Math.round((width - pillW) / 2);
+  const pillY = Math.round(height * 0.58);
+  const pillFont = Math.round(pillH * 0.45);
+  const pillTextY = pillY + Math.round(pillH * 0.65);
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-  <rect x="${pillX}" y="${pillY}" width="${pillW}" height="${pillH}" rx="${Math.round(pillH / 2)}" fill="rgba(0,0,0,0.5)"/>
+  <rect x="${badgeX}" y="${badgeY}" width="${badgeW}" height="${badgeH}" rx="${Math.round(badgeH / 2)}" fill="#ef4444"/>
+  <text x="${badgeX + Math.round(badgeW / 2)}" y="${badgeY + Math.round(badgeH * 0.68)}" text-anchor="middle" font-size="${badgeFont}" font-family="Arial, Helvetica, sans-serif" font-weight="800" fill="#ffffff" letter-spacing="1">LIVE</text>
   <text x="${centerX}" y="${emojiY}" text-anchor="middle" font-size="${emojiSize}" font-family="'Segoe UI Emoji','Apple Color Emoji','Noto Color Emoji',sans-serif">👁️</text>
-  <text x="${centerX}" y="${textY}" text-anchor="middle" font-size="${textSize}" font-family="Arial, Helvetica, sans-serif" font-weight="700" fill="#ffffff" letter-spacing="2">show now</text>
+  <text x="${centerX}" y="${textY}" text-anchor="middle" font-size="${textSize}" font-family="Arial, Helvetica, sans-serif" font-weight="600" fill="#ffffff" letter-spacing="1">click the show button</text>
+  <rect x="${pillX}" y="${pillY}" width="${pillW}" height="${pillH}" rx="${Math.round(pillH / 2)}" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+  <text x="${centerX}" y="${pillTextY}" text-anchor="middle" font-size="${pillFont}" font-family="Arial, Helvetica, sans-serif" font-weight="700" fill="#ffffff" letter-spacing="2">show</text>
 </svg>`;
 }
 
