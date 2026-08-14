@@ -276,7 +276,7 @@ export default function Home() {
         />
       </div>
 
-      {mode === "blur" && (
+      {mode !== "original" && (
         <div className="animate-fade-up anim-delay-4 flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-4">
           <label className="flex items-center justify-between text-sm text-gray-300">
             <span>Kekuatan Blur</span>

@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
 
   let blurPercent = 40;
   const parsed = Number(form.get("blur"));
-  if (mode === "blur" && !Number.isNaN(parsed)) {
+  if ((mode === "blur" || mode === "live") && !Number.isNaN(parsed)) {
     blurPercent = Math.min(100, Math.max(0, Math.round(parsed)));
   }
 
