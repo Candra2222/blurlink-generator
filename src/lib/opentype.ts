@@ -60,5 +60,5 @@ export function textSvg(
   const glyphPath = font.getPath(text, 0, 0, size);
   const attrs = [`translate(${x + dx} ${y})`, `fill="${fill}"`];
   if (opacity < 1) attrs.push(`opacity="${opacity}"`);
-  return `<g transform="${attrs[0]}" ${attrs.slice(1).join(" ")}><path d="${glyphPath.toPathData()}"/></g>`;
+  return `<g transform="${attrs[0]}" ${attrs.slice(1).join(" ")}><path d="${glyphPath.toPathData({ flipY: false })}"/></g>`;
 }

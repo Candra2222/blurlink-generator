@@ -9,7 +9,11 @@ declare module "opentype.js" {
   interface Path {
     commands: unknown[];
     bounds: BoundingBox;
-    toPathData(decimalPlaces?: number): string;
+    toPathData(
+      options?:
+        | number
+        | { flipY?: boolean; decimalPlaces?: number; optimize?: boolean }
+    ): string;
   }
 
   interface Font {
