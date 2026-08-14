@@ -274,7 +274,7 @@ export async function processLiveImage(
   seed: string
 ): Promise<Buffer> {
   const sigma = Math.round((blurPercent / 100) * 30 * 10) / 10;
-  let pipeline = sharp(input).resize({
+  let pipeline = sharp(input).autoOrient().resize({
     width: 1200,
     height: 630,
     fit: "cover",
@@ -302,7 +302,7 @@ export async function processBlurImage(
   blurPercent: number
 ): Promise<Buffer> {
   const sigma = Math.round((blurPercent / 100) * 30 * 10) / 10;
-  let pipeline = sharp(input).resize({
+  let pipeline = sharp(input).autoOrient().resize({
     width: 1200,
     height: 630,
     fit: "cover",
