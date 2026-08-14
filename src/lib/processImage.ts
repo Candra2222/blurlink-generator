@@ -48,10 +48,14 @@ export async function processBlurImage(
   blurPercent: number
 ): Promise<Buffer> {
   const sigma = Math.round((blurPercent / 100) * 30 * 10) / 10;
-  const blurred = await sharp(input)
-    .resize({ width: 1200, height: 630, fit: "cover", position: "centre" })
-    .blur(sigma)
-    .toBuffer();
+  let pipeline = sharp(input).resize({
+    width: 1200,
+    height: 630,
+    fit: "cover",
+    position: "centre",
+  });
+  if (sigma > 0) pipeline = pipeline.blur(sigma);
+  const blurred = await pipeline.toBuffer();
 
   const meta = await sharp(blurred).metadata();
   const width = meta.width ?? 800;
