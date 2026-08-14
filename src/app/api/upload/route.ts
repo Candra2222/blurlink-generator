@@ -111,5 +111,6 @@ export async function POST(req: NextRequest) {
     mode,
     slug,
     url: url.toString(),
+    imageUrl: link.teaser_storage_path ?? link.original_storage_path,
   });
 }

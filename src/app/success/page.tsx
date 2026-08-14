@@ -1,4 +1,3 @@
-import { headers } from "next/headers";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { findLinkByOriginalSlug, findLinkByTeaserSlug } from "@/lib/db";
@@ -22,15 +21,6 @@ export default async function SuccessPage({
   const imagePath = isBlur
     ? link.teaser_storage_path
     : link.original_storage_path;
-  const href = `/${isBlur ? "t" : "o"}/${slug}`;
-
-  const headersList = await headers();
-  const host =
-    headersList.get("x-forwarded-host") ??
-    headersList.get("host") ??
-    "localhost:3000";
-  const proto = headersList.get("x-forwarded-proto") ?? "http";
-  const fullUrl = `${proto}://${host}${href}`;
 
   return (
     <div className="mx-auto flex w-full max-w-lg flex-col items-center justify-center gap-6 px-4 py-12">
@@ -78,12 +68,12 @@ export default async function SuccessPage({
           Tautan {isBlur ? "Blur" : "Original"} Anda
         </p>
         <p className="break-all text-center font-mono text-sm text-blue-300">
-          {fullUrl}
+          {imagePath}
         </p>
       </div>
 
       <div className="flex w-full flex-col gap-3 sm:flex-row">
-        <CopyButton link={fullUrl} className="flex-1" />
+        <CopyButton link={imagePath ?? ""} className="flex-1" />
         <a
           href={imagePath ?? "#"}
           target="_blank"

@@ -1,4 +1,3 @@
-import { headers } from "next/headers";
 import Link from "next/link";
 import { listLinks } from "@/lib/db";
 import CopyButton from "@/components/CopyButton";
@@ -18,14 +17,6 @@ function formatDate(iso: string): string {
 
 export default async function HistoryPage() {
   const links = await listLinks();
-
-  const headersList = await headers();
-  const host =
-    headersList.get("x-forwarded-host") ??
-    headersList.get("host") ??
-    "localhost:3000";
-  const proto = headersList.get("x-forwarded-proto") ?? "http";
-  const origin = `${proto}://${host}`;
 
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-10">
@@ -75,7 +66,6 @@ export default async function HistoryPage() {
               ? link.teaser_storage_path
               : link.original_storage_path;
             const href = `/${isBlur ? "t" : "o"}/${slug}`;
-            const fullUrl = `${origin}${href}`;
 
             return (
               <li
@@ -108,16 +98,18 @@ export default async function HistoryPage() {
                       {formatDate(link.created_at)}
                     </span>
                   </div>
-                  <Link
-                    href={href}
+                  <a
+                    href={imagePath ?? href}
+                    target="_blank"
+                    rel="noreferrer"
                     className="mt-1 block truncate font-mono text-sm text-blue-300 transition-colors hover:text-blue-200"
-                    title={fullUrl}
+                    title={imagePath ?? href}
                   >
-                    {fullUrl}
-                  </Link>
+                    {imagePath}
+                  </a>
                 </div>
                 <div className="flex shrink-0 items-center gap-2">
-                  <CopyButton link={fullUrl} label="Salin" />
+                  <CopyButton link={imagePath ?? href} label="Salin" />
                   <DeleteButton id={link.id} />
                 </div>
               </li>
