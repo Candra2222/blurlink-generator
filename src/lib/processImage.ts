@@ -294,6 +294,7 @@ export async function processLiveImage(
         gravity: "center",
       },
     ])
+    .withMetadata({ orientation: 1 })
     .toBuffer();
 }
 
@@ -322,5 +323,6 @@ export async function processBlurImage(
         gravity: "center",
       },
     ])
+    .withMetadata({ orientation: 1 })
     .toBuffer();
 }
