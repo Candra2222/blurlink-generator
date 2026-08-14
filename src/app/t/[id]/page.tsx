@@ -18,7 +18,7 @@ export default async function TeaserPage({
       <img
         src={link.teaser_storage_path}
         alt="Teaser Blur"
-        className="max-h-full max-w-full object-contain"
+        className="animate-fade-in max-h-full max-w-full object-contain"
       />
     </div>
   );

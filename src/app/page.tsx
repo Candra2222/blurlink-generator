@@ -128,19 +128,19 @@ export default function Home() {
   return (
     <div className="mx-auto flex w-full max-w-xl flex-1 flex-col justify-center gap-7 px-4 py-12">
       <div className="text-center">
-        <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+        <h1 className="animate-fade-up text-3xl font-bold tracking-tight text-white sm:text-4xl">
           BlurLink{" "}
-          <span className="bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
+          <span className="animate-shimmer-text bg-gradient-to-r from-blue-400 via-violet-400 to-blue-400 bg-clip-text text-transparent">
             Generator
           </span>
         </h1>
-        <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-gray-400">
+        <p className="animate-fade-up anim-delay-1 mx-auto mt-3 max-w-md text-sm leading-relaxed text-gray-400">
           Unggah satu gambar, pilih hasil akhir, dan bagikan tautan hanya dengan
           sekali klik.
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-2 rounded-2xl border border-white/10 bg-white/5 p-1.5">
+      <div className="animate-fade-up anim-delay-2 grid grid-cols-2 gap-2 rounded-2xl border border-white/10 bg-white/5 p-1.5">
         {modes.map((m) => {
           const active = mode === m.value;
           return (
@@ -149,10 +149,10 @@ export default function Home() {
               type="button"
               onClick={() => setMode(m.value)}
               aria-pressed={active}
-              className={`flex flex-col items-start gap-1 rounded-xl px-4 py-3 text-left transition-all ${
+              className={`shine-card flex flex-col items-start gap-1 rounded-xl px-4 py-3 text-left transition-all duration-300 ${
                 active
-                  ? "bg-gradient-to-br from-blue-600 to-violet-600 shadow-lg shadow-blue-600/25"
-                  : "bg-transparent hover:bg-white/5"
+                  ? "bg-gradient-to-br from-blue-600 to-violet-600 shadow-lg shadow-blue-600/40 ring-1 ring-blue-400/40"
+                  : "bg-transparent hover:-translate-y-0.5 hover:bg-white/5 hover:shadow-lg hover:shadow-violet-500/10"
               }`}
             >
               <span
@@ -188,10 +188,10 @@ export default function Home() {
         }}
         onDragLeave={() => setDragging(false)}
         onDrop={onDrop}
-        className={`group flex h-60 cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed p-6 text-center transition-all ${
+        className={`animate-fade-up anim-delay-3 group flex h-60 cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed p-6 text-center transition-all duration-300 sm:h-64 ${
           dragging
-            ? "border-blue-400 bg-blue-500/10 shadow-lg shadow-blue-500/10"
-            : "border-white/15 bg-white/5 hover:border-white/30 hover:bg-white/[0.07]"
+            ? "border-blue-400 bg-blue-500/10 shadow-lg shadow-blue-500/20"
+            : "border-white/15 bg-white/5 hover:border-blue-400/50 hover:bg-white/[0.07] hover:shadow-lg hover:shadow-blue-500/10"
         }`}
       >
         {preview ? (
@@ -200,7 +200,7 @@ export default function Home() {
             <img
               src={preview}
               alt="Pratinjau"
-              className="max-h-44 max-w-full rounded-xl object-contain shadow-2xl"
+              className="animate-zoom-in max-h-44 max-w-full rounded-xl object-contain shadow-2xl"
             />
             <span className="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-full bg-black/60 px-3 py-1 text-xs text-gray-200 backdrop-blur">
               Klik untuk ganti gambar
@@ -208,7 +208,7 @@ export default function Home() {
           </div>
         ) : (
           <>
-            <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/5 text-gray-400 transition-colors group-hover:text-blue-300">
+            <span className="animate-float flex h-14 w-14 items-center justify-center rounded-2xl bg-white/5 text-gray-400 transition-colors group-hover:text-blue-300">
               <svg
                 className="h-7 w-7"
                 fill="none"
@@ -241,7 +241,7 @@ export default function Home() {
       </div>
 
       {mode === "blur" && (
-        <div className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-4">
+        <div className="animate-fade-up anim-delay-4 flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-4">
           <label className="flex items-center justify-between text-sm text-gray-300">
             <span>Kekuatan Blur</span>
             <span className="rounded-md bg-white/10 px-2 py-0.5 font-mono text-xs font-semibold text-blue-300">
@@ -254,7 +254,7 @@ export default function Home() {
             max={100}
             value={blur}
             onChange={(e) => setBlur(Number(e.target.value))}
-            className="h-2 w-full cursor-pointer appearance-none rounded-full bg-white/10 accent-blue-500"
+            className="slider w-full"
           />
           <div className="flex justify-between text-[11px] text-gray-500">
             <span>Jelas</span>
@@ -264,7 +264,7 @@ export default function Home() {
       )}
 
       {error && (
-        <p className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300">
+        <p className="animate-fade-in rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300">
           {error}
         </p>
       )}
@@ -273,7 +273,7 @@ export default function Home() {
         type="button"
         onClick={handleSubmit}
         disabled={uploading}
-        className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition-all hover:from-blue-500 hover:to-violet-500 hover:shadow-blue-500/30 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
+        className="shine-card animate-fade-up anim-delay-5 flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition-all duration-300 hover:-translate-y-0.5 hover:from-blue-500 hover:to-violet-500 hover:shadow-blue-500/40 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
       >
         {uploading ? (
           <>

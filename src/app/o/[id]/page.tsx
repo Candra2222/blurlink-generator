@@ -18,7 +18,7 @@ export default async function OriginalPage({
       <img
         src={link.original_storage_path}
         alt="Gambar Original"
-        className="max-h-full max-w-full object-contain"
+        className="animate-fade-in max-h-full max-w-full object-contain"
       />
     </div>
   );

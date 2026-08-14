@@ -20,7 +20,7 @@ export default async function HistoryPage() {
 
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-10">
-      <div className="mb-6 flex items-center justify-between">
+      <div className="animate-fade-up mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold tracking-tight text-white">Riwayat</h1>
         <span className="rounded-full bg-white/5 px-3 py-1 text-xs font-medium text-gray-400 ring-1 ring-white/10">
           {links.length} {links.length === 1 ? "link" : "link"}
@@ -28,8 +28,8 @@ export default async function HistoryPage() {
       </div>
 
       {links.length === 0 ? (
-        <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-dashed border-white/15 bg-white/5 px-6 py-16 text-center">
-          <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/5 text-gray-500">
+        <div className="animate-fade-up anim-delay-1 flex flex-col items-center justify-center gap-4 rounded-2xl border border-dashed border-white/15 bg-white/5 px-6 py-16 text-center">
+          <span className="animate-float flex h-14 w-14 items-center justify-center rounded-2xl bg-white/5 text-gray-500">
             <svg
               viewBox="0 0 24 24"
               className="h-7 w-7"
@@ -52,14 +52,14 @@ export default async function HistoryPage() {
           </div>
           <Link
             href="/"
-            className="rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition-colors hover:from-blue-500 hover:to-violet-500"
+            className="shine-card rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition-all duration-300 hover:-translate-y-0.5 hover:from-blue-500 hover:to-violet-500 hover:shadow-blue-500/40"
           >
             Buat Tautan
           </Link>
         </div>
       ) : (
         <ul className="flex flex-col gap-3">
-          {links.map((link) => {
+          {links.map((link, index) => {
             const isBlur = link.mode === "blur";
             const slug = isBlur ? link.teaser_slug : link.original_slug;
             const imagePath = isBlur
@@ -70,7 +70,8 @@ export default async function HistoryPage() {
             return (
               <li
                 key={link.id}
-                className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-3 transition-colors hover:bg-white/[0.07]"
+                style={{ animationDelay: `${Math.min(index * 90, 540)}ms` }}
+                className="group animate-fade-up flex flex-wrap items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-400/30 hover:bg-white/[0.07] hover:shadow-lg hover:shadow-blue-500/10 sm:flex-nowrap sm:gap-4"
               >
                 <Link
                   href={href}
@@ -80,7 +81,7 @@ export default async function HistoryPage() {
                   <img
                     src={imagePath ?? undefined}
                     alt=""
-                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                 </Link>
                 <div className="min-w-0 flex-1">
@@ -94,7 +95,7 @@ export default async function HistoryPage() {
                     >
                       {isBlur ? "Blur" : "Original"}
                     </span>
-                    <span className="text-xs text-gray-500">
+                    <span className="truncate text-xs text-gray-500">
                       {formatDate(link.created_at)}
                     </span>
                   </div>
@@ -108,7 +109,7 @@ export default async function HistoryPage() {
                     {imagePath}
                   </a>
                 </div>
-                <div className="flex shrink-0 items-center gap-2">
+                <div className="flex w-full shrink-0 items-center justify-end gap-2 sm:w-auto">
                   <CopyButton link={imagePath ?? href} label="Salin" />
                   <DeleteButton id={link.id} />
                 </div>

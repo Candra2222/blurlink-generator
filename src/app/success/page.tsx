@@ -25,7 +25,7 @@ export default async function SuccessPage({
   return (
     <div className="mx-auto flex w-full max-w-lg flex-col items-center justify-center gap-6 px-4 py-12">
       <div className="flex flex-col items-center gap-2 text-center">
-        <span className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-400 ring-1 ring-emerald-400/30">
+        <span className="animate-pop flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-400 ring-1 ring-emerald-400/30 shadow-lg shadow-emerald-500/20">
           <svg
             viewBox="0 0 24 24"
             className="h-6 w-6"
@@ -40,11 +40,11 @@ export default async function SuccessPage({
             />
           </svg>
         </span>
-        <h1 className="text-2xl font-bold tracking-tight text-white">
+        <h1 className="animate-fade-up text-2xl font-bold tracking-tight text-white">
           Link berhasil dibuat
         </h1>
         <span
-          className={`rounded-full px-3 py-1 text-xs font-semibold ${
+          className={`animate-fade-up anim-delay-1 rounded-full px-3 py-1 text-xs font-semibold ${
             isBlur
               ? "bg-purple-500/15 text-purple-300 ring-1 ring-purple-400/30"
               : "bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-400/30"
@@ -54,16 +54,16 @@ export default async function SuccessPage({
         </span>
       </div>
 
-      <div className="w-full overflow-hidden rounded-2xl border border-white/10 bg-white/5">
+      <div className="animate-fade-up anim-delay-2 w-full overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-xl shadow-blue-500/5">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={imagePath ?? undefined}
           alt="Pratinjau"
-          className="max-h-80 w-full object-contain"
+          className="animate-zoom-in max-h-80 w-full object-contain"
         />
       </div>
 
-      <div className="w-full rounded-xl border border-white/10 bg-gray-900/60 px-4 py-3">
+      <div className="animate-fade-up anim-delay-3 w-full rounded-xl border border-white/10 bg-gray-900/60 px-4 py-3">
         <p className="mb-1.5 text-center text-xs font-medium uppercase tracking-wider text-gray-500">
           Tautan {isBlur ? "Blur" : "Original"} Anda
         </p>
@@ -72,19 +72,19 @@ export default async function SuccessPage({
         </p>
       </div>
 
-      <div className="flex w-full flex-col gap-3 sm:flex-row">
+      <div className="animate-fade-up anim-delay-4 flex w-full flex-col gap-3 sm:flex-row">
         <CopyButton link={imagePath ?? ""} className="flex-1" />
         <a
           href={imagePath ?? "#"}
           target="_blank"
           rel="noreferrer"
-          className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-gray-200 transition-colors hover:bg-white/10"
+          className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-gray-200 transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-lg hover:shadow-violet-500/10"
         >
           Buka Gambar
         </a>
         <Link
           href="/history"
-          className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-gray-200 transition-colors hover:bg-white/10"
+          className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-gray-200 transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-lg hover:shadow-violet-500/10"
         >
           Riwayat
         </Link>

@@ -32,7 +32,7 @@ export default function CopyButton({
     <button
       type="button"
       onClick={handleCopy}
-      className={`flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition-all hover:from-blue-500 hover:to-violet-500 hover:shadow-blue-500/30 active:scale-[0.99] ${className}`}
+      className={`shine-card flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition-all duration-300 hover:-translate-y-0.5 hover:from-blue-500 hover:to-violet-500 hover:shadow-blue-500/40 active:scale-[0.98] ${className}`}
     >
       {copied ? (
         <svg

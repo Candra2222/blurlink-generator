@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
+import NavLinks from "@/components/NavLinks";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -30,14 +31,27 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-gray-950 text-gray-100">
-        <div
-          aria-hidden
-          className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-80 bg-[radial-gradient(60%_100%_at_50%_0%,rgba(59,130,246,0.18),transparent)]"
-        />
+        {/* Animated background */}
+        <div aria-hidden className="pointer-events-none fixed inset-0 -z-20">
+          <div className="absolute inset-0 bg-[radial-gradient(60%_100%_at_50%_0%,rgba(59,130,246,0.16),transparent)]" />
+          <div className="animate-blob absolute -top-24 -left-24 h-80 w-80 rounded-full bg-blue-600/25 blur-3xl" />
+          <div
+            className="animate-blob absolute top-1/3 -right-32 h-96 w-96 rounded-full bg-violet-600/20 blur-3xl anim-delay-2"
+            style={{ animationDuration: "20s" }}
+          />
+          <div
+            className="animate-blob absolute -bottom-32 left-1/4 h-80 w-80 rounded-full bg-cyan-500/15 blur-3xl anim-delay-4"
+            style={{ animationDuration: "24s" }}
+          />
+        </div>
+
         <header className="sticky top-0 z-20 border-b border-white/5 bg-gray-950/70 backdrop-blur">
           <div className="mx-auto flex w-full max-w-4xl items-center justify-between px-4 py-3 sm:px-6">
-            <Link href="/" className="group flex items-center gap-2.5">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-violet-600 shadow-lg shadow-blue-500/20">
+            <Link
+              href="/"
+              className="shine-card group flex items-center gap-2.5 rounded-xl"
+            >
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-violet-600 shadow-lg shadow-blue-500/20 transition-transform group-hover:scale-105">
                 <svg
                   viewBox="0 0 24 24"
                   className="h-4.5 w-4.5 text-white"
@@ -49,7 +63,13 @@ export default function RootLayout({
                     d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"
                     strokeLinejoin="round"
                   />
-                  <circle cx="12" cy="12" r="3" fill="currentColor" stroke="none" />
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="3"
+                    fill="currentColor"
+                    stroke="none"
+                  />
                 </svg>
               </span>
               <span className="text-lg font-bold tracking-tight text-white">
@@ -57,23 +77,33 @@ export default function RootLayout({
                 <span className="text-blue-400">.</span>
               </span>
             </Link>
-            <nav className="flex items-center gap-1 text-sm text-gray-400">
-              <Link
-                href="/"
-                className="rounded-lg px-3 py-1.5 transition-colors hover:bg-white/5 hover:text-white"
-              >
-                Beranda
-              </Link>
-              <Link
-                href="/history"
-                className="rounded-lg px-3 py-1.5 transition-colors hover:bg-white/5 hover:text-white"
-              >
-                Riwayat
-              </Link>
-            </nav>
+            <NavLinks />
           </div>
         </header>
+
         <main className="flex flex-1 flex-col">{children}</main>
+
+        <footer className="border-t border-white/5 py-6">
+          <p className="animate-fade-in flex items-center justify-center gap-2 text-sm text-gray-500">
+            <svg
+              viewBox="0 0 24 24"
+              className="h-4 w-4 text-violet-400"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M13 10V3L4 14h7v7l9-11h-7z"
+              />
+            </svg>
+            Powered by{" "}
+            <span className="animate-gradient-x bg-gradient-to-r from-blue-400 via-violet-400 to-blue-400 bg-clip-text font-semibold text-transparent">
+              Sesepuh
+            </span>
+          </p>
+        </footer>
       </body>
     </html>
   );
