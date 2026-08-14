@@ -6,7 +6,7 @@
 -- Tabel utama
 create table if not exists public.image_links (
   id uuid primary key,
-  mode text not null check (mode in ('blur', 'original')),
+  mode text not null check (mode in ('blur', 'original', 'live')),
   teaser_slug text unique,
   original_slug text unique,
   teaser_storage_path text,

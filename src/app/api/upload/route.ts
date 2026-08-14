@@ -6,7 +6,7 @@ import {
   findLinkByTeaserSlug,
   findLinkByOriginalSlug,
 } from "@/lib/db";
-import { saveImage } from "@/lib/storage";
+import { saveImage, deleteImageByPublicPath } from "@/lib/storage";
 import {
   extForMimetype,
   isAllowedType,
@@ -81,29 +81,43 @@ export async function POST(req: NextRequest) {
     created_at: new Date().toISOString(),
   };
 
-  if (mode === "blur" || mode === "live") {
-    const teaserSlug = await uniqueSlug(8);
-    const processed =
-      mode === "live"
-        ? await processLiveImage(input, blurPercent, teaserSlug)
-        : await processBlurImage(input, blurPercent);
-    link.teaser_slug = teaserSlug;
-    link.teaser_storage_path = await saveImage(
-      "blur",
-      `${teaserSlug}.${ext}`,
-      processed
-    );
-  } else {
-    const originalSlug = await uniqueSlug(8);
-    link.original_slug = originalSlug;
-    link.original_storage_path = await saveImage(
-      "originals",
-      `${originalSlug}.${ext}`,
-      input
+  try {
+    if (mode === "blur" || mode === "live") {
+      const teaserSlug = await uniqueSlug(8);
+      const processed =
+        mode === "live"
+          ? await processLiveImage(input, blurPercent, teaserSlug)
+          : await processBlurImage(input, blurPercent);
+      link.teaser_slug = teaserSlug;
+      link.teaser_storage_path = await saveImage(
+        "blur",
+        `${teaserSlug}.${ext}`,
+        processed
+      );
+    } else {
+      const originalSlug = await uniqueSlug(8);
+      link.original_slug = originalSlug;
+      link.original_storage_path = await saveImage(
+        "originals",
+        `${originalSlug}.${ext}`,
+        input
+      );
+    }
+
+    await insertLink(link);
+  } catch (err) {
+    if (link.teaser_storage_path) {
+      await deleteImageByPublicPath(link.teaser_storage_path).catch(() => {});
+    }
+    if (link.original_storage_path) {
+      await deleteImageByPublicPath(link.original_storage_path).catch(() => {});
+    }
+    console.error("Upload gagal:", err);
+    return NextResponse.json(
+      { error: "Gagal memproses gambar. Silakan coba lagi." },
+      { status: 500 }
     );
   }
-
-  await insertLink(link);
 
   const slug = link.teaser_slug ?? link.original_slug;
   const url = new URL(

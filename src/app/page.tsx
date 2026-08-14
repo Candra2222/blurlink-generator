@@ -58,8 +58,17 @@ export default function Home() {
     fd.append("blur", String(blur));
     try {
       const res = await fetch("/api/upload", { method: "POST", body: fd });
+      if (!res.ok) {
+        let message = "Upload gagal.";
+        try {
+          const body = await res.json();
+          message = body?.error ?? message;
+        } catch {
+          message = `Upload gagal (${res.status}). Silakan coba lagi.`;
+        }
+        throw new Error(message);
+      }
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Upload gagal.");
       router.push(`/success?mode=${data.mode}&slug=${data.slug}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Upload gagal.");

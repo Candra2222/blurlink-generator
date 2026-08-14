@@ -1,27 +1,22 @@
 import fs from "fs";
-import path from "path";
+import { fileURLToPath } from "url";
 import { parse, type Font } from "opentype.js";
 
 export type FontWeight = "regular" | "medium" | "bold";
 
 const FONT_FILES: Record<FontWeight, string> = {
-  regular: "Roboto-Regular.ttf",
-  medium: "Roboto-Medium.ttf",
-  bold: "Roboto-Bold.ttf",
+  regular: fileURLToPath(
+    new URL("./fonts/Roboto-Regular.ttf", import.meta.url)
+  ),
+  medium: fileURLToPath(new URL("./fonts/Roboto-Medium.ttf", import.meta.url)),
+  bold: fileURLToPath(new URL("./fonts/Roboto-Bold.ttf", import.meta.url)),
 };
 
 const cache: Partial<Record<FontWeight, Font>> = {};
 
 function loadFont(weight: FontWeight): Font {
   if (cache[weight]) return cache[weight]!;
-  const file = path.join(
-    process.cwd(),
-    "src",
-    "lib",
-    "fonts",
-    FONT_FILES[weight]
-  );
-  const data = fs.readFileSync(file);
+  const data = fs.readFileSync(FONT_FILES[weight]);
   const ab = data.buffer.slice(data.byteOffset, data.byteOffset + data.length);
   const font = parse(ab);
   cache[weight] = font;
