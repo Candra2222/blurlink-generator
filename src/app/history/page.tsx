@@ -60,12 +60,13 @@ export default async function HistoryPage() {
       ) : (
         <ul className="flex flex-col gap-3">
           {links.map((link, index) => {
-            const isBlur = link.mode === "blur";
-            const slug = isBlur ? link.teaser_slug : link.original_slug;
-            const imagePath = isBlur
+            const isLive = link.mode === "live";
+            const isTeaser = link.mode === "blur" || isLive;
+            const slug = isTeaser ? link.teaser_slug : link.original_slug;
+            const imagePath = isTeaser
               ? link.teaser_storage_path
               : link.original_storage_path;
-            const href = `/${isBlur ? "t" : "o"}/${slug}`;
+            const href = `/${isTeaser ? "t" : "o"}/${slug}`;
 
             return (
               <li
@@ -88,12 +89,14 @@ export default async function HistoryPage() {
                   <div className="flex items-center gap-2">
                     <span
                       className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ${
-                        isBlur
-                          ? "bg-purple-500/15 text-purple-300 ring-1 ring-purple-400/30"
-                          : "bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-400/30"
+                        isLive
+                          ? "bg-red-500/15 text-red-300 ring-1 ring-red-400/30"
+                          : isTeaser
+                            ? "bg-purple-500/15 text-purple-300 ring-1 ring-purple-400/30"
+                            : "bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-400/30"
                       }`}
                     >
-                      {isBlur ? "Blur" : "Original"}
+                      {isLive ? "Live" : isTeaser ? "Blur" : "Original"}
                     </span>
                     <span className="truncate text-xs text-gray-500">
                       {formatDate(link.created_at)}

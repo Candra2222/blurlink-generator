@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { ChangeEvent, DragEvent } from "react";
 
-type Mode = "blur" | "original";
+type Mode = "blur" | "original" | "live";
 
 const ACCEPT = "image/jpeg,image/png,image/webp";
 const MAX_SIZE = 5 * 1024 * 1024;
@@ -123,6 +123,31 @@ export default function Home() {
         </svg>
       ),
     },
+    {
+      value: "live",
+      title: "Live Stream",
+      desc: "Teaser buram + kolom live",
+      icon: (
+        <svg
+          viewBox="0 0 24 24"
+          className="h-5 w-5"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+        >
+          <rect
+            x="3.5"
+            y="6"
+            width="17"
+            height="12"
+            rx="3"
+            strokeLinejoin="round"
+          />
+          <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none" />
+          <path d="M16.5 8.5a5 5 0 010 7M7.5 8.5a5 5 0 000 7" strokeLinecap="round" />
+        </svg>
+      ),
+    },
   ];
 
   return (
@@ -140,7 +165,7 @@ export default function Home() {
         </p>
       </div>
 
-      <div className="animate-fade-up anim-delay-2 grid grid-cols-2 gap-2 rounded-2xl border border-white/10 bg-white/5 p-1.5">
+      <div className="animate-fade-up anim-delay-2 grid grid-cols-2 gap-2 rounded-2xl border border-white/10 bg-white/5 p-1.5 sm:grid-cols-3">
         {modes.map((m) => {
           const active = mode === m.value;
           return (
@@ -150,6 +175,8 @@ export default function Home() {
               onClick={() => setMode(m.value)}
               aria-pressed={active}
               className={`shine-card flex flex-col items-start gap-1 rounded-xl px-4 py-3 text-left transition-all duration-300 ${
+                m.value === "live" ? "col-span-2 sm:col-span-1" : ""
+              } ${
                 active
                   ? "bg-gradient-to-br from-blue-600 to-violet-600 shadow-lg shadow-blue-600/40 ring-1 ring-blue-400/40"
                   : "bg-transparent hover:-translate-y-0.5 hover:bg-white/5 hover:shadow-lg hover:shadow-violet-500/10"

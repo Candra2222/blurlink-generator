@@ -11,6 +11,7 @@ import {
   extForMimetype,
   isAllowedType,
   processBlurImage,
+  processLiveImage,
   MAX_SIZE,
 } from "@/lib/processImage";
 import type { ImageLink, Mode } from "@/lib/types";
@@ -39,7 +40,8 @@ export async function POST(req: NextRequest) {
 
   const file = form.get("file");
   const modeRaw = String(form.get("mode") ?? "");
-  const mode: Mode = modeRaw === "blur" ? "blur" : "original";
+  const mode: Mode =
+    modeRaw === "blur" ? "blur" : modeRaw === "live" ? "live" : "original";
 
   let blurPercent = 40;
   const parsed = Number(form.get("blur"));
@@ -79,9 +81,12 @@ export async function POST(req: NextRequest) {
     created_at: new Date().toISOString(),
   };
 
-  if (mode === "blur") {
+  if (mode === "blur" || mode === "live") {
     const teaserSlug = await uniqueSlug(8);
-    const processed = await processBlurImage(input, blurPercent);
+    const processed =
+      mode === "live"
+        ? await processLiveImage(input, blurPercent, teaserSlug)
+        : await processBlurImage(input, blurPercent);
     link.teaser_slug = teaserSlug;
     link.teaser_storage_path = await saveImage(
       "blur",
@@ -102,7 +107,7 @@ export async function POST(req: NextRequest) {
 
   const slug = link.teaser_slug ?? link.original_slug;
   const url = new URL(
-    mode === "blur" ? `/t/${slug}` : `/o/${slug}`,
+    mode === "blur" || mode === "live" ? `/t/${slug}` : `/o/${slug}`,
     req.url
   );
 

@@ -11,14 +11,15 @@ export default async function SuccessPage({
   searchParams: Promise<{ mode?: string; slug?: string }>;
 }) {
   const { mode, slug } = await searchParams;
-  const isBlur = mode === "blur";
+  const isLive = mode === "live";
+  const isTeaser = mode === "blur" || isLive;
 
-  const link = isBlur
+  const link = isTeaser
     ? await findLinkByTeaserSlug(slug ?? "")
     : await findLinkByOriginalSlug(slug ?? "");
   if (!link) notFound();
 
-  const imagePath = isBlur
+  const imagePath = isTeaser
     ? link.teaser_storage_path
     : link.original_storage_path;
 
@@ -45,12 +46,14 @@ export default async function SuccessPage({
         </h1>
         <span
           className={`animate-fade-up anim-delay-1 rounded-full px-3 py-1 text-xs font-semibold ${
-            isBlur
-              ? "bg-purple-500/15 text-purple-300 ring-1 ring-purple-400/30"
-              : "bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-400/30"
+            isLive
+              ? "bg-red-500/15 text-red-300 ring-1 ring-red-400/30"
+              : isTeaser
+                ? "bg-purple-500/15 text-purple-300 ring-1 ring-purple-400/30"
+                : "bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-400/30"
           }`}
         >
-          {isBlur ? "Teaser Blur" : "Original"}
+          {isLive ? "Live Stream" : isTeaser ? "Teaser Blur" : "Original"}
         </span>
       </div>
 
@@ -65,7 +68,7 @@ export default async function SuccessPage({
 
       <div className="animate-fade-up anim-delay-3 w-full rounded-xl border border-white/10 bg-gray-900/60 px-4 py-3">
         <p className="mb-1.5 text-center text-xs font-medium uppercase tracking-wider text-gray-500">
-          Tautan {isBlur ? "Blur" : "Original"} Anda
+          Tautan {isLive ? "Live" : isTeaser ? "Blur" : "Original"} Anda
         </p>
         <p className="break-all text-center font-mono text-sm text-blue-300">
           {imagePath}

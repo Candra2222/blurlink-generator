@@ -1,4 +1,4 @@
-export type Mode = "blur" | "original";
+export type Mode = "blur" | "original" | "live";
 
 export interface ImageLink {
   id: string;
