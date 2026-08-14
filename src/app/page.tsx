@@ -160,7 +160,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="mx-auto flex w-full max-w-xl flex-1 flex-col justify-center gap-7 px-4 py-12">
+    <div className="mx-auto flex w-full max-w-xl flex-1 flex-col justify-center gap-6 px-4 py-8 sm:gap-7 sm:py-12">
       <div className="text-center">
         <h1 className="animate-fade-up text-3xl font-bold tracking-tight text-white sm:text-4xl">
           BlurLink{" "}
@@ -174,7 +174,7 @@ export default function Home() {
         </p>
       </div>
 
-      <div className="animate-fade-up anim-delay-2 grid grid-cols-2 gap-2 rounded-2xl border border-white/10 bg-white/5 p-1.5 sm:grid-cols-3">
+      <div className="animate-fade-up anim-delay-2 grid grid-cols-1 gap-2 rounded-2xl border border-white/10 bg-white/5 p-1.5 sm:grid-cols-3">
         {modes.map((m) => {
           const active = mode === m.value;
           return (
@@ -184,8 +184,6 @@ export default function Home() {
               onClick={() => setMode(m.value)}
               aria-pressed={active}
               className={`shine-card flex flex-col items-start gap-1 rounded-xl px-4 py-3 text-left transition-all duration-300 ${
-                m.value === "live" ? "col-span-2 sm:col-span-1" : ""
-              } ${
                 active
                   ? "bg-gradient-to-br from-blue-600 to-violet-600 shadow-lg shadow-blue-600/40 ring-1 ring-blue-400/40"
                   : "bg-transparent hover:-translate-y-0.5 hover:bg-white/5 hover:shadow-lg hover:shadow-violet-500/10"
@@ -224,7 +222,7 @@ export default function Home() {
         }}
         onDragLeave={() => setDragging(false)}
         onDrop={onDrop}
-        className={`animate-fade-up anim-delay-3 group flex h-60 cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed p-6 text-center transition-all duration-300 sm:h-64 ${
+        className={`animate-fade-up anim-delay-3 group flex h-48 cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed p-6 text-center transition-all duration-300 sm:h-64 ${
           dragging
             ? "border-blue-400 bg-blue-500/10 shadow-lg shadow-blue-500/20"
             : "border-white/15 bg-white/5 hover:border-blue-400/50 hover:bg-white/[0.07] hover:shadow-lg hover:shadow-blue-500/10"
@@ -236,7 +234,7 @@ export default function Home() {
             <img
               src={preview}
               alt="Pratinjau"
-              className="animate-zoom-in max-h-44 max-w-full rounded-xl object-contain shadow-2xl"
+              className="animate-zoom-in max-h-36 max-w-full rounded-xl object-contain shadow-2xl"
             />
             <span className="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-full bg-black/60 px-3 py-1 text-xs text-gray-200 backdrop-blur">
               Klik untuk ganti gambar
