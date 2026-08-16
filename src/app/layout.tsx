@@ -4,6 +4,9 @@ import Link from "next/link";
 import NavLinks from "@/components/NavLinks";
 import "./globals.css";
 
+const LOGO_URL =
+  "https://gjckialvldozgcfewmyf.supabase.co/storage/v1/object/public/LOGO/logo.png";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -18,6 +21,7 @@ export const metadata: Metadata = {
   title: "BlurLink Generator",
   description:
     "Unggah satu gambar, dapatkan tautan blur teaser atau original siap dibagikan.",
+  icons: { icon: LOGO_URL },
 };
 
 export default function RootLayout({
@@ -47,35 +51,13 @@ export default function RootLayout({
 
         <header className="sticky top-0 z-20 border-b border-white/5 bg-gray-950/70 backdrop-blur">
           <div className="mx-auto flex w-full max-w-4xl items-center justify-between px-4 py-3 sm:px-6">
-            <Link
-              href="/"
-              className="shine-card group flex items-center gap-2.5 rounded-xl"
-            >
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-violet-600 shadow-lg shadow-blue-500/20 transition-transform group-hover:scale-105">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-4.5 w-4.5 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path
-                    d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"
-                    strokeLinejoin="round"
-                  />
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="3"
-                    fill="currentColor"
-                    stroke="none"
-                  />
-                </svg>
-              </span>
-              <span className="text-lg font-bold tracking-tight text-white">
-                BlurLink
-                <span className="text-blue-400">.</span>
-              </span>
+            <Link href="/" className="group flex items-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={LOGO_URL}
+                alt="BlurLink"
+                className="h-10 w-auto transition-transform group-hover:scale-105"
+              />
             </Link>
             <NavLinks />
           </div>
