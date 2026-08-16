@@ -176,9 +176,6 @@ function buildLiveOverlaySvg(width: number, height: number, seed: string): strin
   const likesX = rightEdge - likesW;
   const likesCy = pillTop + pillH / 2;
 
-  const playCy = Math.round(H / 2);
-  const playRingR = 36;
-
   const bubbleW = 404;
   const bubbleX = W - 22 - bubbleW;
   const bubbleH = 54;
@@ -214,9 +211,6 @@ function buildLiveOverlaySvg(width: number, height: number, seed: string): strin
     /* scrims */
     `<rect width="${W}" height="${H}" fill="url(#live-vignette)"/>`,
     `<rect width="${W}" height="${H}" fill="url(#live-scrim)"/>`,
-    /* center play button */
-    `<circle cx="${Math.round(W / 2)}" cy="${playCy}" r="${playRingR}" fill="rgba(0,0,0,0.5)" stroke="rgba(255,255,255,0.85)" stroke-width="3"/>`,
-    `<polygon points="${Math.round(W / 2) - 14},${playCy - 16} ${Math.round(W / 2) - 14},${playCy + 16} ${Math.round(W / 2) + 18},${playCy}" fill="#ffffff"/>`,
     /* LIVE badge */
     `<rect x="${livePillX}" y="${pillTop}" width="${livePillW}" height="${pillH}" rx="20" fill="#ff2d4e"/>`,
     `<circle cx="${livePillX + 21}" cy="${livePillCy}" r="6" fill="#ffffff"/>`,
